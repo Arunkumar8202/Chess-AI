@@ -9,90 +9,6 @@ const config = {
 const game = new Chess();
 const board = Chessboard('myBoard', config);
 
-const pawnEvalWhite =
-  [
-    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
-    [ 5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0],
-    [ 1.0,  1.0,  2.0,  3.0,  3.0,  2.0,  1.0,  1.0],
-    [ 0.5,  0.5,  1.0,  2.5,  2.5,  1.0,  0.5,  0.5],
-    [ 0.0,  0.0,  0.0,  2.0,  2.0,  0.0,  0.0,  0.0],
-    [ 0.5, -0.5, -1.0,  0.0,  0.0, -1.0, -0.5,  0.5],
-    [ 0.5,  1.0,  1.0, -2.0, -2.0,  1.0,  1.0,  0.5],
-    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0]
-  ];
-
-const pawnEvalBlack = reverseArray(pawnEvalWhite);
-
-const knightEval =
-  [
-    [-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0],
-    [-4.0, -2.0,  0.0,  0.0,  0.0,  0.0, -2.0, -4.0],
-    [-3.0,  0.0,  1.0,  1.5,  1.5,  1.0,  0.0, -3.0],
-    [-3.0,  0.5,  1.5,  2.0,  2.0,  1.5,  0.5, -3.0],
-    [-3.0,  0.0,  1.5,  2.0,  2.0,  1.5,  0.0, -3.0],
-    [-3.0,  0.5,  1.0,  1.5,  1.5,  1.0,  0.5, -3.0],
-    [-4.0, -2.0,  0.0,  0.5,  0.5,  0.0, -2.0, -4.0],
-    [-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0]
-  ];
-
-const bishopEvalWhite =
-  [
-    [-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0],
-    [-1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [-1.0,  0.0,  0.5,  1.0,  1.0,  0.5,  0.0, -1.0],
-    [-1.0,  0.5,  0.5,  1.0,  1.0,  0.5,  0.5, -1.0],
-    [-1.0,  0.0,  1.0,  1.0,  1.0,  1.0,  0.0, -1.0],
-    [-1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0, -1.0],
-    [-1.0,  0.5,  0.0,  0.0,  0.0,  0.0,  0.5, -1.0],
-    [-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0]
-  ];
-
-const bishopEvalBlack = reverseArray(bishopEvalWhite);
-
-const rookEvalWhite =
-  [
-    [ 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
-    [ 0.5,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  0.5],
-    [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [ 0.0,  0.0,  0.0,  0.5,  0.5,  0.0,  0.0,  0.0]
-  ];
-
-const rookEvalBlack = reverseArray(rookEvalWhite);
-
-const queenEval =
-  [
-    [-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
-    [-1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [-1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
-    [-0.5,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
-    [ 0.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
-    [-1.0,  0.5,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
-    [-1.0,  0.0,  0.5,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0]
-  ];
-
-const kingEvalWhite =
-  [
-    [-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [-2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0],
-    [-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0],
-    [ 2.0,  2.0,  0.0,  0.0,  0.0,  0.0,  2.0,  2.0],
-    [ 2.0,  3.0,  1.0,  0.0,  0.0,  1.0,  3.0,  2.0]
-  ];
-
-const kingEvalBlack = reverseArray(kingEvalWhite);
-
-function reverseArray(array) {
-  return array.slice().reverse();
-}
-
 function onDragStart(source, piece, position, orientation) {
   if (game.game_over()) return false;
 
@@ -201,17 +117,17 @@ function getPieceValue(piece, x, y) {
   }
   let absoluteValue;
   if (piece.type === 'p') {
-    absoluteValue = 10 + (piece.color ? pawnEvalWhite[x][y] : pawnEvalBlack[x][y]);
+    absoluteValue = 10 
   } else if (piece.type === 'n') {
-    absoluteValue = 30 + knightEval[x][y];
+    absoluteValue = 30 
   } else if (piece.type === 'b') {
-    absoluteValue = 30 + (piece.color ? bishopEvalWhite[x][y] : bishopEvalBlack[x][y]);
+    absoluteValue = 30 
   } else if (piece.type === 'r') {
-    absoluteValue = 50 + (piece.color ? rookEvalWhite[x][y] : rookEvalBlack[x][y]);
+    absoluteValue = 50 
   } else if (piece.type === 'q') {
-    absoluteValue = 90 + queenEval[x][y];
+    absoluteValue = 90 
   } else if (piece.type === 'k') {
-    absoluteValue = 900 + (piece.color ? kingEvalWhite[x][y] : kingEvalBlack[x][y]);
+    absoluteValue = 900
   } else {
     throw Error(`Unknown piece type: ${piece.type}`);
   }
